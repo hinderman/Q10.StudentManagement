@@ -6,4 +6,20 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Commands\Handler\" />
+    <Folder Include="Configuration\" />
+    <Folder Include="Configuration\Validations\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="14.0.0" />
+    <PackageReference Include="ErrorOr" Version="2.0.1" />
+    <PackageReference Include="MediatR" Version="12.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Q10.StudentManagement.Student.Domain\Q10.StudentManagement.Student.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
