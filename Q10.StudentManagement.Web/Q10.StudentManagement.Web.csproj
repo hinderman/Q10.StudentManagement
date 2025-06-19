@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Core\Enrollments\Interfaces\" />
+    <Folder Include="Core\Enrollments\Models\" />
+    <Folder Include="Core\Enrollments\Validators\" />
+    <Folder Include="Core\Students\Validators\" />
+    <Folder Include="Core\Students\Interfaces\" />
+    <Folder Include="Core\Students\Models\" />
+    <Folder Include="Core\Subjects\Interfaces\" />
+    <Folder Include="Core\Subjects\Models\" />
+    <Folder Include="Core\Subjects\Validators\" />
+    <Folder Include="Infrastructure\Enrollments\Services\" />
+    <Folder Include="Infrastructure\Configuration\" />
+    <Folder Include="Infrastructure\Students\Services\" />
+    <Folder Include="Infrastructure\Subjects\Services\" />
+  </ItemGroup>
+
+</Project>
