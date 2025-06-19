@@ -1,14 +1,19 @@
-## Creacion de la base de datos
+# Creacion de la base de datos
 
-# Crear la base de datos
+## Crear la base de datos
+```
 CREATE DATABASE StudentManagementDb;
 GO
+```
 
-# Usar la base de datos creada
+## Usar la base de datos creada
+```
 USE StudentManagementDb;
 GO
+```
 
-# tabla Student
+## tabla Student
+```
 CREATE TABLE Student (
     Id UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
     Name NVARCHAR(100) NOT NULL,
@@ -16,13 +21,17 @@ CREATE TABLE Student (
     Email NVARCHAR(100) NOT NULL UNIQUE
 );
 GO
+```
 
-# índices para la tabla Student
+## índices para la tabla Student
+```
 CREATE INDEX IX_Student_Document ON Student(Document);
 CREATE INDEX IX_Student_Email ON Student(Email);
 GO
+```
 
-# tabla Subject
+## tabla Subject
+```
 CREATE TABLE Subject (
     Id UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
     Name NVARCHAR(100) NOT NULL,
@@ -30,12 +39,16 @@ CREATE TABLE Subject (
     Credits INT NOT NULL
 );
 GO
+```
 
-# índices para la tabla Subject
+## índices para la tabla Subject
+```
 CREATE INDEX IX_Subject_Code ON Subject(Code);
 GO
+```
 
-# tabla Enrollment
+## tabla Enrollment
+```
 CREATE TABLE Enrollment (
     Id UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
     StudentId UNIQUEIDENTIFIER NOT NULL,
@@ -45,13 +58,17 @@ CREATE TABLE Enrollment (
     CONSTRAINT FK_Enrollment_Subject FOREIGN KEY (SubjectId) REFERENCES Subject(Id)
 );
 GO
+```
 
-# índice compuesto para la tabla Enrollment
+## índice compuesto para la tabla Enrollment
+```
 CREATE INDEX IX_Enrollment_StudentSubject ON Enrollment(StudentId, SubjectId);
 CREATE INDEX IX_Enrollment_RegistrationDate ON Enrollment(RegistrationDate);
 GO
+```
 
-# Insertar datos de prueba en la tabla Student
+## Insertar datos de prueba en la tabla Student
+```
 INSERT INTO Student (Name, Document, Email) VALUES
 ('Juan Pérez', '12345678A', 'juan.perez@email.com'),
 ('María García', '87654321B', 'maria.garcia@email.com'),
@@ -59,8 +76,10 @@ INSERT INTO Student (Name, Document, Email) VALUES
 ('Ana Martínez', '44332211D', 'ana.martinez@email.com'),
 ('Luis Rodríguez', '55667788E', 'luis.rodriguez@email.com');
 GO
+```
 
-# Insertar datos de prueba en la tabla Subject
+## Insertar datos de prueba en la tabla Subject
+```
 INSERT INTO Subject (Name, Code, Credits) VALUES
 ('Matemáticas Avanzadas', 'MATH-101', 4),
 ('Programación I', 'PROG-201', 3),
@@ -68,8 +87,10 @@ INSERT INTO Subject (Name, Code, Credits) VALUES
 ('Inteligencia Artificial', 'IA-401', 5),
 ('Redes de Computadoras', 'NET-501', 3);
 GO
+```
 
-# Insertar datos de prueba en la tabla Enrollment. Obtenemos IDs de estudiantes y materias para las inscripciones
+## Insertar datos de prueba en la tabla Enrollment. Obtenemos IDs de estudiantes y materias para las inscripciones
+```
 DECLARE @JuanId UNIQUEIDENTIFIER, @MariaId UNIQUEIDENTIFIER, @CarlosId UNIQUEIDENTIFIER, @Anaid UNIQUEIDENTIFIER, @LuisId UNIQUEIDENTIFIER;
 DECLARE @MathId UNIQUEIDENTIFIER, @ProgId UNIQUEIDENTIFIER, @DbId UNIQUEIDENTIFIER, @IaId UNIQUEIDENTIFIER, @NetId UNIQUEIDENTIFIER;
 
@@ -84,8 +105,10 @@ SELECT @ProgId = Id FROM Subject WHERE Code = 'PROG-201';
 SELECT @DbId = Id FROM Subject WHERE Code = 'DB-301';
 SELECT @IaId = Id FROM Subject WHERE Code = 'IA-401';
 SELECT @NetId = Id FROM Subject WHERE Code = 'NET-501';
+```
 
-# Insertar inscripciones
+## Insertar inscripciones
+```
 INSERT INTO Enrollment (StudentId, SubjectId, RegistrationDate) VALUES
 (@JuanId, @MathId, DATEADD(DAY, -10, GETDATE())),
 (@JuanId, @ProgId, DATEADD(DAY, -9, GETDATE())),
@@ -98,3 +121,4 @@ INSERT INTO Enrollment (StudentId, SubjectId, RegistrationDate) VALUES
 (@LuisId, @IaId, DATEADD(DAY, -2, GETDATE())),
 (@LuisId, @NetId, DATEADD(DAY, -1, GETDATE()));
 GO
+```
