@@ -13,6 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Q10.StudentManagement.Enrollment.Application\Q10.StudentManagement.Enrollment.Application.csproj" />
+    <ProjectReference Include="..\Q10.StudentManagement.Enrollment.Infrastructure\Q10.StudentManagement.Enrollment.Infrastructure.csproj" />
     <ProjectReference Include="..\Q10.StudentManagement.Student.Application\Q10.StudentManagement.Student.Application.csproj" />
     <ProjectReference Include="..\Q10.StudentManagement.Student.Infrastructure\Q10.StudentManagement.Student.Infrastructure.csproj" />
     <ProjectReference Include="..\Q10.StudentManagement.Subject.Application\Q10.StudentManagement.Subject.Application.csproj" />

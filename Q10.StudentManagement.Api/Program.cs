@@ -4,6 +4,8 @@ using Q10.StudentManagement.Student.Application.Configuration;
 using Q10.StudentManagement.Api.Middleware;
 using Q10.StudentManagement.Subject.Infrastructure.Configuration;
 using Q10.StudentManagement.Subject.Application.Configuration;
+using Q10.StudentManagement.Enrollment.Infrastructure.Configuration;
+using Q10.StudentManagement.Enrollment.Application.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +17,9 @@ builder.Services.AddPresentation()
     .AddStudentInfrastructure(builder.Configuration)
     .AddStudentApplication()
     .AddSubjectInfrastructure(builder.Configuration)
-    .AddSubjectApplication();
+    .AddSubjectApplication()
+    .AddEnrollmentInfrastructure(builder.Configuration)
+    .AddEnrollmentApplication();
 
 var app = builder.Build();
 

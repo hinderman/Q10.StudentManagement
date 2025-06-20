@@ -4,7 +4,7 @@ using Q10.StudentManagement.Student.Domain.ValueObjects;
 
 namespace Q10.StudentManagement.Student.Infrastructure.Persistence.DataBaseConfiguration
 {
-    public class StudentConfiguration : IEntityTypeConfiguration<Domain.Entities.Student>
+    internal class StudentConfiguration : IEntityTypeConfiguration<Domain.Entities.Student>
     {
         public void Configure(EntityTypeBuilder<Domain.Entities.Student> builder)
         {
