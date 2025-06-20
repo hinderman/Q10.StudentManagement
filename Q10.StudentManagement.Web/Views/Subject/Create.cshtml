@@ -1,0 +1,59 @@
+﻿@using Q10.StudentManagement.Web.Models.Subject
+@model SubjectViewModel
+@{
+    ViewData["Title"] = "Crear Asignatura";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h3 class="mb-0">
+            Crear Nuevo Asignatura
+        </h3>
+    </div>
+    <div>
+        <a asp-action="Index" class="btn btn-secondary">
+            Volver a la Lista
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <form asp-action="Create" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <div class="mb-3">
+                        <label asp-for="pName" class="form-label">Nombre *</label>
+                        <input asp-for="pName" class="form-control" placeholder="Nombre de la asignatura" />
+                        <span asp-validation-for="pName" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="pCode" class="form-label">Codigo *</label>
+                        <input asp-for="pCode" class="form-control" type="text" placeholder="ABC-123" />
+                        <span asp-validation-for="pCode" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="pCredits" class="form-label">Creditos *</label>
+                        <input asp-for="pCredits" class="form-control" type="number" placeholder="4" />
+                        <span asp-validation-for="pCredits" class="text-danger"></span>
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save me-1"></i>
+                            Guardar
+                        </button>
+                        <a asp-action="Index" class="btn btn-outline-secondary">
+                            <i class="fas fa-times me-1"></i>
+                            Cancelar
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

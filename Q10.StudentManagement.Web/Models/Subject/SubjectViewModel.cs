@@ -4,17 +4,17 @@ namespace Q10.StudentManagement.Web.Models.Subject
 {
     public class SubjectViewModel
     {
-        public Guid Id { get; set; }
+        public Guid pId { get; set; }
 
-        [Required]
-        public string? Name { get; set; }
+        [Required(ErrorMessage = "El nombre es requerido")]
+        public string? pName { get; set; }
 
-        [Required]
-        public string? Code { get; set; }
+        [Required(ErrorMessage = "El codigo es requerido")]
+        public string? pCode { get; set; }
 
-        [Required]
-        public int Credits { get; set; }
+        [Required(ErrorMessage = "Los creditos son requeridos")]
+        public int pCredits { get; set; }
 
-        public bool State { get; set; }
+        public bool pState { get; set; }
     }
 }

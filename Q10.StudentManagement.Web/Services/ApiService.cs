@@ -55,18 +55,18 @@ namespace Q10.StudentManagement.Web.Services
             }
         }
 
-        public bool Post<TRequest>(string endpoint, TRequest data)
+        public async Task<bool> PostAsync<TRequest>(string endpoint, TRequest data)
         {
-            var response = _HttpClient.PostAsJsonAsync(endpoint, data);
+            var response = await _HttpClient.PostAsJsonAsync(endpoint, data);
 
-            if (response.Result.IsSuccessStatusCode)
+            if (response.IsSuccessStatusCode)
             {
-                return response.Result.IsSuccessStatusCode;
+                return response.IsSuccessStatusCode;
             }
             else
             {
-                _Logger.LogError($"Error posting data to {endpoint}: {response.Result.ReasonPhrase}");
-                throw new HttpRequestException($"Error posting data to {endpoint}: {response.Result.ReasonPhrase}");
+                _Logger.LogError($"Error posting data to {endpoint}: {response.ReasonPhrase}");
+                throw new HttpRequestException($"Error posting data to {endpoint}: {response.ReasonPhrase}");
             }
         }
 

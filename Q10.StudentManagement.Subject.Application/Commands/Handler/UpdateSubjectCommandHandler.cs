@@ -16,7 +16,7 @@ namespace Q10.StudentManagement.Subject.Application.Commands.Handler
                 return Error.NotFound("Subject.NotFound", "La asignatura que desea actualizar no fue encontrado.");
             }
 
-            await _ISubjectRepository.UpdateAsync(Domain.Entities.Subject.Create(new Id(request.pId), request.pName, request.Code, request.pCredits, request.pState));
+            await _ISubjectRepository.UpdateAsync(Domain.Entities.Subject.Create(new Id(request.pId), request.pName, request.pCode, request.pCredits, request.pState));
 
             return Unit.Value;
         }

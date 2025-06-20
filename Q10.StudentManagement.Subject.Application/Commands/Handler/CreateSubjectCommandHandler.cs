@@ -12,7 +12,7 @@ namespace Q10.StudentManagement.Subject.Application.Commands.Handler
         public async Task<ErrorOr<Unit>> Handle(CreateSubjectCommand request, CancellationToken cancellationToken)
         {
             Guid newGuid = Guid.NewGuid();
-            Domain.Entities.Subject objSubject = Domain.Entities.Subject.Create(new Id(newGuid), request.pName, request.Code, request.pCredits, request.pState);
+            Domain.Entities.Subject objSubject = Domain.Entities.Subject.Create(new Id(newGuid), request.pName, request.pCode, request.pCredits, true);
 
             await _ISubjectRepository.AddAsync(objSubject);
 

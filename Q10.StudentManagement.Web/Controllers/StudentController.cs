@@ -29,7 +29,7 @@ namespace Q10.StudentManagement.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(StudentViewModel model)
+        public async Task<IActionResult> CreateAsync(StudentViewModel model)
         {
             try
             {
@@ -38,7 +38,7 @@ namespace Q10.StudentManagement.Web.Controllers
                     return View(model);
                 }
 
-                bool result = _IApiService.Post<StudentViewModel>("Student", model);
+                bool result = await _IApiService.PostAsync<StudentViewModel>("Student", model);
 
                 return RedirectToAction(nameof(Index));
             }

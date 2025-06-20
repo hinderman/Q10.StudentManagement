@@ -1,12 +1,26 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Q10.StudentManagement.Web.Interfaces;
+using Q10.StudentManagement.Web.Models.Students;
 
 namespace Q10.StudentManagement.Web.Controllers
 {
-    public class EnrollmentController : Controller
+    public class EnrollmentController(IApiService pIApiService, ILogger<StudentController> pILogger) : Controller
     {
-        public IActionResult Index()
+        private readonly IApiService _IApiService = pIApiService ?? throw new ArgumentNullException(nameof(pIApiService));
+        private readonly ILogger<StudentController> _ILogger = pILogger ?? throw new ArgumentNullException(nameof(pILogger));
+
+        public async Task<ActionResult> Index()
         {
-            return View();
+            try
+            {
+                IEnumerable<StudentViewModel> responce = await _IApiService.GetAsync<IEnumerable<StudentViewModel>>("Student");
+                return View(responce);
+            }
+            catch (Exception ex)
+            {
+                _ILogger.LogError(ex, "Error al obtener la lista de asignaturas");
+                return View("Error");
+            }
         }
     }
 }
