@@ -18,7 +18,7 @@
 - **MVC**
 
 ## Ejecución
-- **Se deben ejecutar los proyectos:
+- **Se deben ejecutar los proyectos:**
 ### Q10.StudentManagement.Web
 ### Q10.StudentManagement.Api
 
