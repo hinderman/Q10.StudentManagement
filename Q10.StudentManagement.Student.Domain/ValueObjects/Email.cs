@@ -18,7 +18,7 @@ namespace Q10.StudentManagement.Student.Domain.ValueObjects
                 return null;
             }
 
-            return new Email(pValue);
+            return new Email(pValue.ToLower());
         }
     }
 }

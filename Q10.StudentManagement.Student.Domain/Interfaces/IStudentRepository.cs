@@ -3,9 +3,9 @@
     public interface IStudentRepository
     {
         Task<IEnumerable<Entities.Student>> GetAllAsync();
-        Task<Entities.Student?> GetByIdAsync(Guid id);
-        Task AddAsync(Entities.Student student);
-        Task UpdateAsync(Entities.Student student);
-        Task DeleteAsync(Guid id);
+        Task<Entities.Student?> GetByIdAsync(Domain.ValueObjects.Id pId);
+        Task AddAsync(Entities.Student pStudent);
+        Task UpdateAsync(Entities.Student pStudent);
+        Task DeleteAsync(Domain.ValueObjects.Id pId);
     }
 }

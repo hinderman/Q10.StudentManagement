@@ -7,11 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="ErrorOr" Version="2.0.1" />
+    <PackageReference Include="MediatR" Version="12.5.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\Q10.StudentManagement.Student.Application\Q10.StudentManagement.Student.Application.csproj" />
+    <ProjectReference Include="..\Q10.StudentManagement.Student.Infrastructure\Q10.StudentManagement.Student.Infrastructure.csproj" />
+    <ProjectReference Include="..\Q10.StudentManagement.Subject.Application\Q10.StudentManagement.Subject.Application.csproj" />
+    <ProjectReference Include="..\Q10.StudentManagement.Subject.Infrastructure\Q10.StudentManagement.Subject.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
