@@ -1,6 +1,7 @@
 ﻿using System.Net.Http.Headers;
 using Q10.StudentManagement.Web.Common;
 using Q10.StudentManagement.Web.Interfaces;
+using Q10.StudentManagement.Web.Models;
 
 namespace Q10.StudentManagement.Web.Services
 {
@@ -35,23 +36,23 @@ namespace Q10.StudentManagement.Web.Services
             }
             else
             {
-                _Logger.LogError($"Error fetching data from {endpoint}: {response.ReasonPhrase}");
-                throw new HttpRequestException($"Error fetching data from {endpoint}: {response.ReasonPhrase}");
+                _Logger.LogError($"{endpoint}: {response.ReasonPhrase}");
+                throw new HttpRequestException($"{endpoint}: {response.ReasonPhrase}");
             }
         }
 
-        public bool Delete<TRequest>(string endpoint)
+        public async Task<bool> DeleteAsync<TRequest>(string endpoint)
         {
-            var response = _HttpClient.DeleteAsync(endpoint);
+            var response = await _HttpClient.DeleteAsync(endpoint);
 
-            if (response.Result.IsSuccessStatusCode)
+            if (response.IsSuccessStatusCode)
             {
-                return response.Result.IsSuccessStatusCode;
+                return response.IsSuccessStatusCode;
             }
             else
             {
-                _Logger.LogError($"Error posting data to {endpoint}: {response.Result.ReasonPhrase}");
-                throw new HttpRequestException($"Error posting data to {endpoint}: {response.Result.ReasonPhrase}");
+                _Logger.LogError($"{endpoint}: {response.ReasonPhrase}");
+                throw new HttpRequestException($"{endpoint}: {response.ReasonPhrase}");
             }
         }
 
@@ -65,23 +66,35 @@ namespace Q10.StudentManagement.Web.Services
             }
             else
             {
-                _Logger.LogError($"Error posting data to {endpoint}: {response.ReasonPhrase}");
-                throw new HttpRequestException($"Error posting data to {endpoint}: {response.ReasonPhrase}");
+                ErrorResponse? objErrorResponse = await response.Content.ReadFromJsonAsync<ErrorResponse>();
+                var errorMessages = new List<string>();
+                if (objErrorResponse?.Errors != null)
+                {
+                    errorMessages = objErrorResponse.Errors.SelectMany(e => e.Value).ToList();
+                }
+                _Logger.LogError($"{endpoint}: {string.Join("\n", errorMessages)}");
+                throw new HttpRequestException($"{endpoint}: {string.Join("\n", errorMessages)}");
             }
         }
 
-        public bool Put<TRequest>(string endpoint, TRequest data)
+        public async Task<bool> PutAsync<TRequest>(string endpoint, TRequest data)
         {
-            var response = _HttpClient.PutAsJsonAsync(endpoint, data);
+            var response = await _HttpClient.PutAsJsonAsync(endpoint, data);
 
-            if (response.Result.IsSuccessStatusCode)
+            if (response.IsSuccessStatusCode)
             {
-                return response.Result.IsSuccessStatusCode;
+                return response.IsSuccessStatusCode;
             }
             else
             {
-                _Logger.LogError($"Error posting data to {endpoint}: {response.Result.ReasonPhrase}");
-                throw new HttpRequestException($"Error posting data to {endpoint}: {response.Result.ReasonPhrase}");
+                ErrorResponse? objErrorResponse = await response.Content.ReadFromJsonAsync<ErrorResponse>();
+                var errorMessages = new List<string>();
+                if (objErrorResponse?.Errors != null)
+                {
+                    errorMessages = objErrorResponse.Errors.SelectMany(e => e.Value).ToList();
+                }
+                _Logger.LogError($"{endpoint}: {string.Join("\n", errorMessages)}");
+                throw new HttpRequestException($"{endpoint}: {string.Join("\n", errorMessages)}");
             }
         }
 

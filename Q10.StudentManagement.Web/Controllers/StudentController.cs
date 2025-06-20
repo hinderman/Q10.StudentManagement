@@ -56,7 +56,7 @@ namespace Q10.StudentManagement.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(StudentViewModel model)
+        public async Task<ActionResult> Edit(StudentViewModel model)
         {
             try
             {
@@ -65,7 +65,7 @@ namespace Q10.StudentManagement.Web.Controllers
                     return View(model);
                 }
 
-                bool result = _IApiService.Put<StudentViewModel>("Student", model);
+                bool result = await _IApiService.PutAsync<StudentViewModel>("Student", model);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -76,12 +76,12 @@ namespace Q10.StudentManagement.Web.Controllers
             }
         }
 
-        public ActionResult Delete(Guid id)
+        public async Task<ActionResult> Delete(Guid id)
         
         {
             try
             {
-                bool deleteStudent = _IApiService.Delete<StudentViewModel>("Student/" + id);
+                bool deleteStudent = await _IApiService.DeleteAsync<StudentViewModel>("Student/" + id);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
