@@ -1,8 +1,43 @@
 ﻿@using Q10.StudentManagement.Web.Models.Students
 
-@model StudentViewModel
+@model IEnumerable<StudentViewModel>
 @{
 	ViewData["Title"] = "Estudiante";
 }
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h3 class="mb-0">
+            Lista de Estudiantes
+        </h3>
+    </div>
+    <div class="rounded-circle">
+        <a asp-action="Create" class="btn btn-primary rounded-circle">
+            Nuevo
+        </a>
+    </div>
+</div>
 
-<div>HOLA ESTUDIANTE</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Documento</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var student in Model)
+        {
+            <tr>
+                <td>@student.pName</td>
+                <td>@student.pEmail</td>
+                <td>@student.pDocument</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@student.pId">Actualizar</a> |
+                    <a asp-action="Delete" asp-route-id="@student.pId">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

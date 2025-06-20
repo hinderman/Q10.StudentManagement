@@ -1,4 +1,14 @@
+using Microsoft.Extensions.Options;
+using Q10.StudentManagement.Web.Common;
+using Q10.StudentManagement.Web.Interfaces;
+using Q10.StudentManagement.Web.Services;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddHttpClient<IApiService, ApiService>();
+builder.Services.Configure<ApiSettings>(builder.Configuration.GetSection("ApiSettings"));
+builder.Services.AddSingleton(resolver => resolver.GetRequiredService<IOptions<ApiSettings>>().Value);
+builder.Services.AddScoped<IApiService, ApiService>();
 
 builder.Services.AddControllersWithViews();
 

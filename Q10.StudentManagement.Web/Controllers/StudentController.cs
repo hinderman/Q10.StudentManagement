@@ -1,73 +1,93 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Q10.StudentManagement.Web.Interfaces;
+using Q10.StudentManagement.Web.Models.Students;
 
 namespace Q10.StudentManagement.Web.Controllers
 {
-    public class StudentController : Controller
+    public class StudentController(IApiService pIApiService, ILogger<StudentController> pILogger) : Controller
     {
-        public ActionResult Index()
-        {
-            return View();
-        }
+        private readonly IApiService _IApiService = pIApiService ?? throw new ArgumentNullException(nameof(pIApiService));
+        private readonly ILogger<StudentController> _ILogger = pILogger ?? throw new ArgumentNullException(nameof(pILogger));
 
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> Index()
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                IEnumerable<StudentViewModel> responce = await _IApiService.GetAsync<IEnumerable<StudentViewModel>>("Student");
+                return View(responce);
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                _ILogger.LogError(ex, "Error al obtener la lista de estudiantes");
+                return View("Error");
             }
         }
 
-        public ActionResult Edit(int id)
+        public IActionResult Create()
         {
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        public ActionResult Delete(int id)
-        {
-            return View();
+            return View(new StudentViewModel());
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public IActionResult Create(StudentViewModel model)
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return View(model);
+                }
+
+                bool result = _IApiService.Post<StudentViewModel>("Student", model);
+
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                ModelState.AddModelError("", "Ocurrió un error al crear el estudiante: " + ex.Message);
+                return View(model);
+            }
+        }
+
+        public async Task<ActionResult> Edit(Guid id)
+        {
+            StudentViewModel responce = await _IApiService.GetAsync<StudentViewModel>("Student/"+id);
+            return View(responce);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(StudentViewModel model)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return View(model);
+                }
+
+                bool result = _IApiService.Put<StudentViewModel>("Student", model);
+
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "Ocurrió un error al editar el estudiante: " + ex.Message);
+                return View(model);
+            }
+        }
+
+        public ActionResult Delete(Guid id)
+        
+        {
+            try
+            {
+                bool deleteStudent = _IApiService.Delete<StudentViewModel>("Student/" + id);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                _ILogger.LogError(ex, "Error al obtener la lista de estudiantes");
+                return View("Error");
             }
         }
     }
