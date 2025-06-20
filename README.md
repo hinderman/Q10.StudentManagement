@@ -1,24 +1,24 @@
 # PRUEBA TECNICA Q10
 
-# Herramientas necesarias
-Visual Studio 2022
-SQL Server Management Studio 21
-Postman
+## Herramientas necesarias
+- **Visual Studio 2022**
+- **SQL Server Management Studio 21**
+- **Postman**
 
-# Back-end
-.Net8
-ErrorOr
-MediatR
-FluentValidation
-Microsoft.EntityFrameworkCore.SqlServer
+## Back-end
+- **.Net8**
+- **ErrorOr**
+- **MediatR**
+- **FluentValidation**
+- **Microsoft.EntityFrameworkCore.SqlServer**
 
 ## Front-end
-.Net8
-Razor pages 
-MVC
+- **.Net8**
+- **Razor pages**
+- **MVC**
 
 ## Ejecución
-Se deben ejecutar los proyectos:
+- **Se deben ejecutar los proyectos:
 ### Q10.StudentManagement.Web
 ### Q10.StudentManagement.Api
 
