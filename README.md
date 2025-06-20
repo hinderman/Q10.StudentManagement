@@ -38,7 +38,7 @@ USE StudentManagementDb;
 GO
 ```
 
-## tabla Student
+## Tabla Student
 ```
 CREATE TABLE Student (
     Id UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
@@ -56,7 +56,7 @@ CREATE INDEX IX_Student_Email ON Student(Email);
 GO
 ```
 
-## tabla Subject
+## Tabla Subject
 ```
 CREATE TABLE Subject (
     Id UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
@@ -73,7 +73,7 @@ CREATE INDEX IX_Subject_Code ON Subject(Code);
 GO
 ```
 
-## tabla Enrollment
+## Tabla Enrollment
 ```
 CREATE TABLE Enrollment (
     Id UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
